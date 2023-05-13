@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "batalha-naval"
+version = "0.1.0"
+description = ""
+authors = ["Antônio Hugo <hugorplobo@gmail.com>"]
+readme = "README.md"
+packages = [{include = "batalha_naval"}]
+
+[tool.poetry.scripts]
+start = "batalha_naval:start"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pytest = "^7.3.1"
+termcolor = "^2.3.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[virtualenvs]
+in-project = true
