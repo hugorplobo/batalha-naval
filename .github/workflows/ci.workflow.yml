@@ -1,0 +1,56 @@
+name: Test and Format
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  lint:
+    name: Run black
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup for black
+        uses: actions/checkout@v3
+      
+      - name: Install python
+        uses: actions/setup-python@v4
+      
+      - name: Install poetry
+        run: python -m pip install --upgrade pip && python -m pip install poetry
+      
+      - name: Install dependencies
+        run: poetry install
+      
+      - name: Format files
+        run: poetry run black .
+      
+      - name: Commit changes
+        uses: mikeal/publish-to-github-action@master
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH_NAME: "main"
+  
+  test:
+    name: Run tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup for tests
+        uses: actions/checkout@v3
+      
+      - name: Install python
+        uses: actions/setup-python@v4
+      
+      - name: Install poetry
+        run: python -m pip install --upgrade pip && python -m pip install poetry
+      
+      - name: Install dependencies
+        run: poetry install
+
+      - name: Run tests
+        run: poetry run pytest --cov --cov-report=html:cover
+      
+      - name: Deploy code coverage
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: cover
+      
