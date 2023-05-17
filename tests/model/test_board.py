@@ -32,7 +32,7 @@ def test_ship_with_valid_pos_should_place_ship_on_board():
     board.place_ship(ship)
 
     for i in range(1, 5):
-        assert board.positions[i][1] == "X"
+        assert board.positions[i][1] == "+"
 
 
 def test_ship_overlapping_should_raise():
@@ -44,3 +44,22 @@ def test_ship_overlapping_should_raise():
 
     with pytest.raises(InvalidPlacePosition):
         board.place_ship(ship2)
+
+
+def test_receive_shot_on_empty_should_set_O_char_and_return_false():
+    board = Board()
+    hit = board.receive_shot((1, 1))
+
+    assert not hit
+    assert board.positions[1][1] == "O"
+
+
+def test_receive_shot_on_ship_should_set_X_char_and_return_true():
+    board = Board()
+    ship = Large((1, 1), (5, 1))
+
+    board.place_ship(ship)
+    hit = board.receive_shot((2, 1))
+
+    assert hit
+    assert board.positions[2][1] == "X"
