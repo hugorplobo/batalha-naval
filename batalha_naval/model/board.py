@@ -1,8 +1,5 @@
 from batalha_naval.model.ship import Ship
-
-
-class InvalidShootPosition(Exception):
-    pass
+from typing import Tuple
 
 
 class InvalidPlacePosition(Exception):
@@ -20,7 +17,15 @@ class Board:
 
         for x in range(ship.init_pos[0], ship.end_pos[0] + 1):
             for y in range(ship.init_pos[1], ship.end_pos[1] + 1):
-                self.positions[x][y] = "X"
+                self.positions[x][y] = "+"
+
+    def receive_shot(self, pos: Tuple[int, int]) -> bool:
+        if self.positions[pos[0]][pos[1]] == " ":
+            self.positions[pos[0]][pos[1]] = "O"
+            return False
+        else:
+            self.positions[pos[0]][pos[1]] = "X"
+            return True
 
     def __is_valid_pos(self, ship: Ship) -> bool:
         is_negative_x = ship.init_pos[0] < 0 or ship.end_pos[0] < 0
@@ -38,7 +43,7 @@ class Board:
     def __is_place_empty(self, ship: Ship) -> bool:
         for x in range(ship.init_pos[0], ship.end_pos[0] + 1):
             for y in range(ship.init_pos[1], ship.end_pos[1] + 1):
-                if self.positions[x][y] == "X":
+                if self.positions[x][y] == "+":
                     return False
 
         return True
