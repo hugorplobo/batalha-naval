@@ -9,8 +9,12 @@ def start():
     while True:
         view.show_boards()
         view.ask_turn()
-
-    input()
+        if view.game.player_1.has_lost():
+            view.show_end_game(view.game.player_2)
+            break
+        elif view.game.player_2.has_lost():
+            view.show_end_game(view.game.player_1)
+            break
 
 
 if __name__ == "__main__":

@@ -12,6 +12,8 @@ from batalha_naval.view.ascii import ship
 from rich.console import Console
 from rich.panel import Panel
 from rich.columns import Columns
+from rich.layout import Layout
+from rich.text import Text
 import os
 from sys import platform
 
@@ -160,7 +162,18 @@ class GameView:
                 break
             except InvalidPosition:
                 print("Essa posição não é válida!")
+    
+    def show_end_game(self, winner: Player) -> None:
+        console = Console()
+        self.__clear()
+        console.print(
+            Layout(
+                Panel(Text(f"O jogador {winner.name} venceu!!", justify="center", style="bold")),
+            )
+        )
+        input()
 
+    
     def __show_board(self, player_num: int) -> str:
         player = self.__parse_player(player_num)
         out = f"[bold]{player.name}[/bold] | {player.remaining_cells} ❤️\n\n"
@@ -198,3 +211,7 @@ class GameView:
             os.system("cls")
         else:
             os.system("clear")
+
+    @property
+    def game(self):
+        return self.__game
