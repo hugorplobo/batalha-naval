@@ -6,7 +6,7 @@ from batalha_naval.model.ship import Ship
 class Player:
     def __init__(self, name: str) -> None:
         self.__name = name
-        self.__remaining_cells = 14
+        self.__remaining_cells = 15
         self.__board = Board()
 
     @property
@@ -17,6 +17,10 @@ class Player:
     def remaining_cells(self):
         return self.__remaining_cells
 
+    @property
+    def board(self):
+        return self.__board
+
     def place_ship(self, ship: Ship):
         self.__board.place_ship(ship)
 
@@ -25,4 +29,4 @@ class Player:
             self.__remaining_cells -= 1
 
     def has_lost(self):
-        return self.__remaining_cells == 0
+        return self.__remaining_cells <= 0
