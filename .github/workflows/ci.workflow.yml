@@ -47,7 +47,7 @@ jobs:
         run: poetry install
 
       - name: Run tests
-        run: poetry run pytest --cov --cov-report=html:cover
+        run: poetry run pytest --cov --cov-report=html:cover && rm cover/.gitignore
       
       - name: Deploy code coverage
         uses: JamesIves/github-pages-deploy-action@v4
