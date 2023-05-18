@@ -1,37 +1,90 @@
 from batalha_naval.model.ship import Ship
-from typing import Tuple
+from typing import Tuple, List
 
 
-class InvalidPlacePosition(Exception):
+class InvalidPosition(Exception):
     pass
 
 
 class Board:
     def __init__(self) -> None:
-        self.size = 10
-        self.positions = [[" " for _ in range(self.size)] for _ in range(self.size)]
+        self.__size = 10
+        self.__positions = [
+            [" " for _ in range(self.__size)] for _ in range(self.__size)
+        ]
+        self.__ships = []
 
     def place_ship(self, ship: Ship) -> None:
-        if not self.__is_valid_pos(ship) or not self.__is_place_empty(ship):
-            raise InvalidPlacePosition()
+        if not self.__is_valid_pos_ship(ship) or not self.__is_place_empty(ship):
+            raise InvalidPosition()
 
         for x in range(ship.init_pos[0], ship.end_pos[0] + 1):
             for y in range(ship.init_pos[1], ship.end_pos[1] + 1):
-                self.positions[x][y] = "+"
+                self.__positions[x][y] = "+"
+        
+        self.__ships.append(ship)
 
     def receive_shot(self, pos: Tuple[int, int]) -> bool:
-        if self.positions[pos[0]][pos[1]] == " ":
-            self.positions[pos[0]][pos[1]] = "O"
+        if not self.__is_valid_pos(pos):
+            raise InvalidPosition()
+        elif self.__positions[pos[0]][pos[1]] == " ":
+            self.__positions[pos[0]][pos[1]] = "O"
             return False
-        else:
-            self.positions[pos[0]][pos[1]] = "X"
+        elif self.__positions[pos[0]][pos[1]] == "+":
+            self.__positions[pos[0]][pos[1]] = "X"
+            self.calculate_destroyeds()
             return True
 
-    def __is_valid_pos(self, ship: Ship) -> bool:
+    def at(self, pos: Tuple[int, int]):
+        if not self.__is_valid_pos(pos):
+            raise InvalidPosition()
+
+        return self.__positions[pos[0]][pos[1]]
+    
+    def calculate_destroyeds(self) -> None:
+        for ship in self.__ships:
+            hit_cells = 0
+            dist = max(abs(ship.init_pos[0] - ship.end_pos[0]), abs(ship.init_pos[1] - ship.end_pos[1])) + 1
+            for i in range(ship.init_pos[0], ship.end_pos[0] + 1):
+                if self.__positions[i][ship.init_pos[1]] == "X":
+                    hit_cells += 1
+            
+            if hit_cells == dist:
+                for i in range(ship.init_pos[0], ship.end_pos[0] + 1):
+                    if self.__positions[i][ship.init_pos[1]] == "X":
+                        self.__positions[i][ship.init_pos[1]] = "*"
+            
+            hit_cells = 0
+            for i in range(ship.init_pos[1], ship.end_pos[1] + 1):
+                if self.__positions[ship.init_pos[0]][i] == "X":
+                    hit_cells += 1
+            
+            if hit_cells == dist:
+                for i in range(ship.init_pos[1], ship.end_pos[1] + 1):
+                    if self.__positions[ship.init_pos[0]][i] == "X":
+                        self.__positions[ship.init_pos[0]][i] = "*"
+        
+        for row in self.__positions:
+            print(row)
+        print("\n\n\n")
+    
+    def __get_adjacents(self, pos: Tuple[int, int]) -> List[int]:
+        return [
+            self.__positions[pos[0] + 1][pos[1]],
+            self.__positions[pos[0]][pos[1] + 1],
+            self.__positions[pos[0] - 1][pos[1]],
+            self.__positions[pos[0]][pos[1] - 1],
+        ]
+
+    def __is_valid_pos_ship(self, ship: Ship) -> bool:
         is_negative_x = ship.init_pos[0] < 0 or ship.end_pos[0] < 0
         is_negative_y = ship.init_pos[1] < 0 or ship.end_pos[1] < 0
-        is_exceeding_x = ship.init_pos[0] >= self.size or ship.end_pos[0] >= self.size
-        is_exceeding_y = ship.init_pos[1] >= self.size or ship.end_pos[1] >= self.size
+        is_exceeding_x = (
+            ship.init_pos[0] >= self.__size or ship.end_pos[0] >= self.__size
+        )
+        is_exceeding_y = (
+            ship.init_pos[1] >= self.__size or ship.end_pos[1] >= self.__size
+        )
 
         return (
             not is_negative_x
@@ -40,10 +93,16 @@ class Board:
             and not is_exceeding_y
         )
 
+    def __is_valid_pos(self, pos: Tuple[int, int]) -> bool:
+        is_negative = pos[0] < 0 or pos[1] < 0
+        is_exceeding = pos[0] > self.__size or pos[1] > self.__size
+
+        return not is_negative and not is_exceeding
+
     def __is_place_empty(self, ship: Ship) -> bool:
         for x in range(ship.init_pos[0], ship.end_pos[0] + 1):
             for y in range(ship.init_pos[1], ship.end_pos[1] + 1):
-                if self.positions[x][y] == "+":
+                if self.__positions[x][y] == "+":
                     return False
 
         return True
