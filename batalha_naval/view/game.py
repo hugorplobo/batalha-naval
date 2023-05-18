@@ -1,13 +1,20 @@
 from batalha_naval.controller.game import GameController
 from batalha_naval.model.player import Player
 from batalha_naval.model.board import Board, InvalidPosition
-from batalha_naval.model.ship import Submarine, Small, Medium, Large, InvalidShipPosition
+from batalha_naval.model.ship import (
+    Submarine,
+    Small,
+    Medium,
+    Large,
+    InvalidShipPosition,
+)
 from batalha_naval.view.ascii import ship
 from rich.console import Console
 from rich.panel import Panel
 from rich.columns import Columns
 import os
 from sys import platform
+
 
 class GameView:
     def __init__(self) -> None:
@@ -21,25 +28,35 @@ class GameView:
         console.rule("[blue bold]BATALHA NAVAL[/blue bold]")
         console.print(f"[cyan bold]{ship}[/cyan bold]", justify="center")
         console.print("\n\n\n\n\n")
-        self.__name1 = console.input("Digite o nome do [underline]Jogador 1[/underline]: ")
-        self.__name2 = console.input("Digite o nome do [underline]Jogador 2[/underline]: ")
-    
+        self.__name1 = console.input(
+            "Digite o nome do [underline]Jogador 1[/underline]: "
+        )
+        self.__name2 = console.input(
+            "Digite o nome do [underline]Jogador 2[/underline]: "
+        )
+
     def show_boards(self) -> None:
         self.__clear()
-        Console().print(Panel(
-            Columns([
-                self.__show_board(1),
-                self.__show_board(2)
-            ], expand=True, equal=True, align="center")
-        ))
-    
+        Console().print(
+            Panel(
+                Columns(
+                    [self.__show_board(1), self.__show_board(2)],
+                    expand=True,
+                    equal=True,
+                    align="center",
+                )
+            )
+        )
+
     def show_placing_board(self, player_num: int) -> None:
         player = self.__parse_player(player_num)
 
         def show_board():
             console = Console()
             self.__clear()
-            console.rule(f"[bold white]Posicionando navios do(a): [blue]{player.name}[/blue][/bold white]")
+            console.rule(
+                f"[bold white]Posicionando navios do(a): [blue]{player.name}[/blue][/bold white]"
+            )
             console.print(f"\n\n\n{self.__parse_board(player.board)}", justify="center")
 
         show_board()
@@ -56,7 +73,7 @@ class GameView:
             except InvalidPosition:
                 show_board()
                 print("Essa posição não existe no tabuleiro!")
-        
+
         # while True:
         #     try:
         #         y1, x1 = map(int, input("Digite a posição inicial do seu navio pequeno (tamanho 2): ").split(","))
@@ -70,7 +87,7 @@ class GameView:
         #     except InvalidPosition:
         #         show_board()
         #         print("Essa posição não existe no tabuleiro!")
-        
+
         # while True:
         #     try:
         #         y1, x1 = map(int, input("Digite a posição inicial do seu navio pequeno (tamanho 2): ").split(","))
@@ -84,7 +101,7 @@ class GameView:
         #     except InvalidPosition:
         #         show_board()
         #         print("Essa posição não existe no tabuleiro!")
-        
+
         # while True:
         #     try:
         #         y1, x1 = map(int, input("Digite a posição inicial do seu navio médio (tamanho 3): ").split(","))
@@ -98,7 +115,7 @@ class GameView:
         #     except InvalidPosition:
         #         show_board()
         #         print("Essa posição não existe no tabuleiro!")
-        
+
         # while True:
         #     try:
         #         y1, x1 = map(int, input("Digite a posição inicial do seu navio médio (tamanho 3): ").split(","))
@@ -112,7 +129,7 @@ class GameView:
         #     except InvalidPosition:
         #         show_board()
         #         print("Essa posição não existe no tabuleiro!")
-        
+
         # while True:
         #     try:
         #         y1, x1 = map(int, input("Digite a posição inicial do seu navio grande (tamanho 4): ").split(","))
@@ -126,7 +143,7 @@ class GameView:
         #     except InvalidPosition:
         #         show_board()
         #         print("Essa posição não existe no tabuleiro!")
-        
+
         input("Aperte ENTER para continuar... ")
 
     def ask_turn(self) -> None:
@@ -134,7 +151,7 @@ class GameView:
         console = Console()
 
         console.print(f"[bold yellow]Vez do(a) {player.name}![/bold yellow]")
-        
+
         while True:
             y, x = map(int, input("Digite a posição do seu tiro: ").split(","))
 
@@ -143,7 +160,7 @@ class GameView:
                 break
             except InvalidPosition:
                 print("Essa posição não é válida!")
-    
+
     def __show_board(self, player_num: int) -> str:
         player = self.__parse_player(player_num)
         out = f"[bold]{player.name}[/bold] | {player.remaining_cells} ❤️\n\n"
@@ -154,7 +171,7 @@ class GameView:
         if player == 1:
             return self.__game.player_1
         return self.__game.player_2
-    
+
     def __parse_board(self, board: Board) -> str:
         out = ""
         for row in range(10):

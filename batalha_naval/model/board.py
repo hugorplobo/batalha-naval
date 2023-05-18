@@ -21,7 +21,7 @@ class Board:
         for x in range(ship.init_pos[0], ship.end_pos[0] + 1):
             for y in range(ship.init_pos[1], ship.end_pos[1] + 1):
                 self.__positions[x][y] = "+"
-        
+
         self.__ships.append(ship)
 
     def receive_shot(self, pos: Tuple[int, int]) -> bool:
@@ -40,34 +40,40 @@ class Board:
             raise InvalidPosition()
 
         return self.__positions[pos[0]][pos[1]]
-    
+
     def calculate_destroyeds(self) -> None:
         for ship in self.__ships:
             hit_cells = 0
-            dist = max(abs(ship.init_pos[0] - ship.end_pos[0]), abs(ship.init_pos[1] - ship.end_pos[1])) + 1
+            dist = (
+                max(
+                    abs(ship.init_pos[0] - ship.end_pos[0]),
+                    abs(ship.init_pos[1] - ship.end_pos[1]),
+                )
+                + 1
+            )
             for i in range(ship.init_pos[0], ship.end_pos[0] + 1):
                 if self.__positions[i][ship.init_pos[1]] == "X":
                     hit_cells += 1
-            
+
             if hit_cells == dist:
                 for i in range(ship.init_pos[0], ship.end_pos[0] + 1):
                     if self.__positions[i][ship.init_pos[1]] == "X":
                         self.__positions[i][ship.init_pos[1]] = "*"
-            
+
             hit_cells = 0
             for i in range(ship.init_pos[1], ship.end_pos[1] + 1):
                 if self.__positions[ship.init_pos[0]][i] == "X":
                     hit_cells += 1
-            
+
             if hit_cells == dist:
                 for i in range(ship.init_pos[1], ship.end_pos[1] + 1):
                     if self.__positions[ship.init_pos[0]][i] == "X":
                         self.__positions[ship.init_pos[0]][i] = "*"
-        
+
         for row in self.__positions:
             print(row)
         print("\n\n\n")
-    
+
     def __get_adjacents(self, pos: Tuple[int, int]) -> List[int]:
         return [
             self.__positions[pos[0] + 1][pos[1]],

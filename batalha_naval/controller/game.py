@@ -22,11 +22,11 @@ class GameController:
     @property
     def player_1(self):
         return self.__player1
-    
+
     @property
     def player_2(self):
         return self.__player2
-    
+
     @property
     def current_player(self):
         return self.__current_player

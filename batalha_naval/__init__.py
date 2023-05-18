@@ -11,7 +11,6 @@ def start():
         view.ask_turn()
 
     input()
-    
 
 
 if __name__ == "__main__":

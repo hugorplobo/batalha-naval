@@ -70,6 +70,7 @@ def test_receive_shot_on_ship_should_set_X_char_and_return_true():
     assert hit
     assert board.at((2, 1)) == "X"
 
+
 def test_teste():
     board = Board()
     ship = Large((1, 1), (4, 1))
@@ -80,5 +81,6 @@ def test_teste():
     board.receive_shot((2, 1))
     board.receive_shot((3, 1))
     board.receive_shot((4, 1))
+
 
 test_teste()
