@@ -8,11 +8,11 @@ def test_submarine_with_valid_pos_should_pass():
 
 def test_submarine_with_invalid_pos_should_raise():
     with pytest.raises(InvalidShipPosition):
-        Submarine((1, 1), (3, 3))
+        Submarine((1, 1), (2, 3))
 
 
 def test_small_with_valid_pos_should_pass():
-    Small((1, 1), (3, 1))
+    Small((1, 1), (2, 1))
 
 
 def test_small_with_invalid_pos_should_raise():
@@ -21,7 +21,7 @@ def test_small_with_invalid_pos_should_raise():
 
 
 def test_medium_with_valid_pos_should_pass():
-    Medium((1, 1), (4, 1))
+    Medium((1, 1), (3, 1))
 
 
 def test_medium_with_invalid_pos_should_raise():
@@ -30,7 +30,7 @@ def test_medium_with_invalid_pos_should_raise():
 
 
 def test_large_with_valid_pos_should_pass():
-    Large((1, 1), (5, 1))
+    Large((1, 1), (4, 1))
 
 
 def test_large_with_invalid_pos_should_raise():

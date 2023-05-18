@@ -35,7 +35,7 @@ class Small(Ship):
         dist_x = abs(self.end_pos[0] - self.init_pos[0])
         dist_y = abs(self.end_pos[1] - self.init_pos[1])
 
-        if not (is_same_x or is_same_y and dist_x == 2 or dist_y == 2):
+        if not (is_same_x or is_same_y and dist_x == 1 or dist_y == 1):
             raise InvalidShipPosition()
 
 
@@ -50,7 +50,7 @@ class Medium(Ship):
         dist_x = abs(self.end_pos[0] - self.init_pos[0])
         dist_y = abs(self.end_pos[1] - self.init_pos[1])
 
-        if not (is_same_x or is_same_y and dist_x == 3 or dist_y == 3):
+        if not (is_same_x or is_same_y and dist_x == 2 or dist_y == 2):
             raise InvalidShipPosition()
 
 
@@ -65,5 +65,5 @@ class Large(Ship):
         dist_x = abs(self.end_pos[0] - self.init_pos[0])
         dist_y = abs(self.end_pos[1] - self.init_pos[1])
 
-        if not (is_same_x or is_same_y and dist_x == 4 or dist_y == 4):
+        if not (is_same_x or is_same_y and dist_x == 3 or dist_y == 3):
             raise InvalidShipPosition()
