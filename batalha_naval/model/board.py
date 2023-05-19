@@ -70,18 +70,6 @@ class Board:
                     if self.__positions[ship.init_pos[0]][i] == "X":
                         self.__positions[ship.init_pos[0]][i] = "*"
 
-        for row in self.__positions:
-            print(row)
-        print("\n\n\n")
-
-    def __get_adjacents(self, pos: Tuple[int, int]) -> List[int]:
-        return [
-            self.__positions[pos[0] + 1][pos[1]],
-            self.__positions[pos[0]][pos[1] + 1],
-            self.__positions[pos[0] - 1][pos[1]],
-            self.__positions[pos[0]][pos[1] - 1],
-        ]
-
     def __is_valid_pos_ship(self, ship: Ship) -> bool:
         is_negative_x = ship.init_pos[0] < 0 or ship.end_pos[0] < 0
         is_negative_y = ship.init_pos[1] < 0 or ship.end_pos[1] < 0
