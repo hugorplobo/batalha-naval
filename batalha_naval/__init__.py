@@ -1,6 +1,7 @@
 from batalha_naval.view.game import GameView
 import sys
 
+
 def start():
     try:
         view = GameView()

@@ -30,7 +30,10 @@ class GameView:
         console.rule("[blue bold]BATALHA NAVAL[/blue bold]")
         console.print(f"[cyan bold]{ship}[/cyan bold]", justify="center")
         console.print("\n\n\n")
-        console.print("Destrua todos os navios do seu oponente para vencer!\nDigite posições sempre no formato x,y", justify="center")
+        console.print(
+            "Destrua todos os navios do seu oponente para vencer!\nDigite posições sempre no formato x,y",
+            justify="center",
+        )
         console.print("\n\n\n")
         self.__name1 = console.input(
             "Digite o nome do [underline]Jogador 1[/underline]: "
@@ -61,27 +64,40 @@ class GameView:
             console.rule(
                 f"[bold white]Posicionando navios do(a): [blue]{player.name}[/blue][/bold white]"
             )
-            console.print(f"\n\n\n{self.__parse_board(player.board, False)}", justify="center")
-
+            console.print(
+                f"\n\n\n{self.__parse_board(player.board, False)}", justify="center"
+            )
 
         def get_ship_pos(ship_type, ship_size):
             while True:
                 try:
-                    y1, x1 = map(int, input(f"Digite a posição inicial do seu navio {self.__parse_ship(ship_type)} (tamanho {ship_size}): ").split(","))
-                    y2, x2 = map(int, input(f"Digite a posição final do seu navio {self.__parse_ship(ship_type)} (tamanho {ship_size}): ").split(","))
+                    y1, x1 = map(
+                        int,
+                        input(
+                            f"Digite a posição inicial do seu navio {self.__parse_ship(ship_type)} (tamanho {ship_size}): "
+                        ).split(","),
+                    )
+                    y2, x2 = map(
+                        int,
+                        input(
+                            f"Digite a posição final do seu navio {self.__parse_ship(ship_type)} (tamanho {ship_size}): "
+                        ).split(","),
+                    )
                     player.place_ship(ship_type((x1, y1), (x2, y2)))
                     show_board()
                     break
                 except InvalidShipPosition:
                     show_board()
-                    print(f"Posição inválida para um navio {self.__parse_ship(ship_type)}!")
+                    print(
+                        f"Posição inválida para um navio {self.__parse_ship(ship_type)}!"
+                    )
                 except InvalidPosition:
                     show_board()
                     print("Essa posição não existe no tabuleiro!")
                 except ValueError:
                     show_board()
                     print("Não entendi o que você digitou, tente o format x,y")
-        
+
         show_board()
 
         while True:
@@ -159,7 +175,7 @@ class GameView:
             return "❌"
         else:
             return "🟦"
-        
+
     def __parse_ship(self, ship) -> str:
         if ship == Submarine:
             return "submarino"
