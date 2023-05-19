@@ -71,16 +71,9 @@ def test_receive_shot_on_ship_should_set_X_char_and_return_true():
     assert board.at((2, 1)) == "X"
 
 
-def test_teste():
+def test_private_method():
     board = Board()
     ship = Large((1, 1), (4, 1))
 
-    board.place_ship(ship)
-
-    board.receive_shot((1, 1))
-    board.receive_shot((2, 1))
-    board.receive_shot((3, 1))
-    board.receive_shot((4, 1))
-
-
-test_teste()
+    assert board._Board__is_place_empty(ship)
+    # Usar board.__is_place_empty(ship) não funciona
