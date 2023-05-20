@@ -32,7 +32,7 @@ class Board:
             return False
         elif self.__positions[pos[0]][pos[1]] == "+":
             self.__positions[pos[0]][pos[1]] = "X"
-            self.calculate_destroyeds()
+            self.__calculate_destroyeds()
             return True
 
     def at(self, pos: Tuple[int, int]):
@@ -41,7 +41,7 @@ class Board:
 
         return self.__positions[pos[0]][pos[1]]
 
-    def calculate_destroyeds(self) -> None:
+    def __calculate_destroyeds(self) -> None:
         for ship in self.__ships:
             hit_cells = 0
             dist = (
