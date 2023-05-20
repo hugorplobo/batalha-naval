@@ -11,24 +11,17 @@ Esse projeto é uma implementação simples do jogo Batalha Naval, desenvolvido 
 
 ## Histórias de usuário
 
-Você pode ver as histórias de usuário da aplicação [aqui](https://www.notion.so/292347708a1f40648a3182f9e97b8d72?v=8c198649711b48eea7d87d0d1f60bf43) juntamente com os cenários de validação do BDD.
+Você pode visualizar as histórias de usuário da aplicação [aqui](https://excellent-earth-751.notion.site/292347708a1f40648a3182f9e97b8d72?v=8c198649711b48eea7d87d0d1f60bf43) juntamente com os cenários de validação do BDD.
 
 
 ## Como executar
 
 O projeto usa o [Poetry](https://python-poetry.org/) para o gerenciamento de dependências e ambientes virtuais. Para instruções de como instalá-lo acesse [aqui](https://python-poetry.org/docs/#installation).
 
-- Utilizando o poetry (**recomendado**):
 ```bash
   $ poetry install
   $ poetry run pytest
   $ poetry run start
 ```
 
-- Sem o poetry:
-```bash
-  $ source .venv/bin/activate
-  $ pytest
-  $ python3 batalha_naval/__init__.py
-  $ deactivate
-```
+Os comandos acima servem para instalar as depend
