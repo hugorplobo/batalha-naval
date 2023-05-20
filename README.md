@@ -11,7 +11,7 @@ Esse projeto é uma implementação simples do jogo Batalha Naval, desenvolvido 
 
 ## Histórias de usuário
 
-Você ver as histórias de usuário da aplicação [aqui](#) juntamente com os cenários de validação do BDD.
+Você pode ver as histórias de usuário da aplicação [aqui](https://www.notion.so/292347708a1f40648a3182f9e97b8d72?v=8c198649711b48eea7d87d0d1f60bf43) juntamente com os cenários de validação do BDD.
 
 
 ## Como executar
