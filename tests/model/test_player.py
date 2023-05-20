@@ -58,6 +58,7 @@ def test_has_lost_after_15_shots_should_return_true():
 
     assert player.has_lost()
 
+
 # has not lost after 15 shots or lost before 15 shot should raise a flag ?
 def test_has_lost_before_15_shots_should_return_false():
     player = Player("Leo")
