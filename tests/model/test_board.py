@@ -3,6 +3,7 @@ from batalha_naval.model.board import Board, InvalidPosition
 from batalha_naval.model.ship import Large
 from typing import Tuple
 
+
 def test_get_valid_position_should_return_empty_char():
     board = Board()
     assert board.at((0, 0)) == " "
@@ -77,6 +78,7 @@ def test_is_place_empty_should_return_true():
 
     assert board._Board__is_place_empty(ship)
 
+
 def test_is_place_empty_should_return_false():
     board = Board()
     ship1 = Large((1, 1), (4, 1))
@@ -85,23 +87,26 @@ def test_is_place_empty_should_return_false():
 
     assert not board._Board__is_place_empty(ship2)
 
-def  test_is_valid_pos_should_return_true():
+
+def test_is_valid_pos_should_return_true():
     board = Board()
-    pos = [1,2]
+    pos = [1, 2]
 
     assert board._Board__is_valid_pos(pos)
 
-def  test_is_valid_pos_whit_negative_value_should_return_false():
+
+def test_is_valid_pos_whit_negative_value_should_return_false():
     board = Board()
-    pos = [-1,2]
+    pos = [-1, 2]
 
     assert not board._Board__is_valid_pos(pos)
 
-def  test_is_valid_pos_whit_exceeding_value_should_return_false():
-    board = Board()
-    pos = [11,2]
 
-    assert not board._Board__is_valid_pos(pos)    
+def test_is_valid_pos_whit_exceeding_value_should_return_false():
+    board = Board()
+    pos = [11, 2]
+
+    assert not board._Board__is_valid_pos(pos)
 
 
 def test_is_valid_pos_ship_should_return_true():
@@ -110,15 +115,16 @@ def test_is_valid_pos_ship_should_return_true():
 
     assert board._Board__is_valid_pos_ship(ship)
 
+
 def test_is_valid_pos_ship_whit_negative_value_should_return_false():
     board = Board()
     ship = Large((-1, 1), (2, 1))
 
-    assert not board._Board__is_valid_pos_ship(ship)  
+    assert not board._Board__is_valid_pos_ship(ship)
+
 
 def test_is_valid_pos_ship_whit_exceeding_value_should_return_false():
     board = Board()
     ship = Large((7, 11), (10, 11))
 
-    assert not board._Board__is_valid_pos_ship(ship)  
-    
+    assert not board._Board__is_valid_pos_ship(ship)
