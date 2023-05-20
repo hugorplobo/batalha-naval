@@ -57,3 +57,17 @@ def test_has_lost_after_15_shots_should_return_true():
         player.receive_shot((0, i))
 
     assert player.has_lost()
+
+# has not lost after 15 shots or lost before 15 shot should raise a flag ?
+def test_has_lost_before_15_shots_should_return_false():
+    player = Player("Leo")
+
+    for i in range(7):
+        player.place_ship(Submarine((i, 0), (i, 0)))
+        player.receive_shot((i, 0))
+
+    for i in range(6):
+        player.place_ship(Submarine((0, i), (0, i)))
+        player.receive_shot((0, i))
+
+    assert player.has_lost() is False
