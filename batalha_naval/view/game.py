@@ -116,11 +116,11 @@ class GameView:
                 show_board()
                 print("Não entendi o que você digitou, tente o format x,y")
 
-        # get_ship_pos(Small, 2)
-        # get_ship_pos(Small, 2)
-        # get_ship_pos(Medium, 3)
-        # get_ship_pos(Medium, 3)
-        # get_ship_pos(Large, 4)
+        get_ship_pos(Small, 2)
+        get_ship_pos(Small, 2)
+        get_ship_pos(Medium, 3)
+        get_ship_pos(Medium, 3)
+        get_ship_pos(Large, 4)
 
         input("Aperte ENTER para continuar... ")
 
